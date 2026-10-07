@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102b41">
+  <title>QR Code do motorista | Gestão de Frota CPL</title>
+  <link rel="stylesheet" href="qr-motorista.css">
+</head>
+<body>
+  <main class="page-shell">
+    <nav class="top-actions" aria-label="Navegação">
+      <a href="index.html">← Voltar para a gestão de frota</a>
+    </nav>
+
+    <section class="qr-card" aria-labelledby="pageTitle">
+      <div class="brand-mark" aria-hidden="true">CPL</div>
+      <p class="eyebrow">GESTÃO DE FROTA</p>
+      <h1 id="pageTitle">Leitura do motorista</h1>
+      <p class="lead">Aponte a câmera do celular para informar o KM ou as horas do equipamento.</p>
+
+      <div class="qr-frame">
+        <canvas id="driverQr" width="340" height="340" aria-label="QR Code para a página de leitura do motorista"></canvas>
+      </div>
+
+      <p class="scan-hint">Aponte a câmera do celular</p>
+      <p id="qrStatus" class="status" role="status">Preparando QR Code…</p>
+      <p id="targetUrl" class="target-url"></p>
+
+      <div class="actions">
+        <a id="openDriverPage" class="button primary" href="motorista.html">Abrir página do motorista</a>
+        <button id="downloadQr" class="button secondary" type="button">Baixar QR Code</button>
+        <button id="printQr" class="button secondary" type="button">Imprimir</button>
+      </div>
+
+      <p class="preview-note">QR Code da prévia online. No sistema definitivo, ele será substituído pelo endereço oficial.</p>
+    </section>
+  </main>
+
+  <script src="qrcode.bundle.js"></script>
+  <script src="qr-motorista.js"></script>
+</body>
+</html>

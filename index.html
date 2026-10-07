@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prévia — Gestão de Frota</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="functional.css">
+  <link rel="stylesheet" href="rental.css">
+  <link rel="stylesheet" href="lessors.css">
+  <link rel="stylesheet" href="typography.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span>CPL</span><div><strong>Sistema de Gestão</strong><small>Ambiente de prévia</small></div></div>
+      <nav>
+        <button><span>▦</span>Painel</button>
+        <button><span>▤</span>Termos e entregas</button>
+        <button><span>▣</span>Informática</button>
+        <button><span>▥</span>Transporte</button>
+        <button class="active"><span>◆</span>Gestão de Frota</button>
+        <button><span>⇅</span>Planilhas</button>
+        <button><span>⌖</span>Locais e obras</button>
+      </nav>
+      <div class="preview-note"><b>PRÉVIA</b><p>Nenhuma informação será gravada no sistema.</p></div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div><p>CPL CONSTRUTORA</p><h1>Gestão de Frota</h1></div>
+        <div class="top-actions"><button class="alert-button">● Alertas <b id="topAlertCount">0</b></button><span class="session"><i></i>Sessão protegida</span></div>
+      </header>
+
+      <section class="content">
+        <div class="heading">
+          <div><p>SISTEMA DE GESTÃO › FROTA › PRÉVIA DA PLANILHA</p><h2>Plano de manutenção dos equipamentos</h2><span>As 23 abas foram organizadas em uma visão única, com equipamentos, ciclos e histórico.</span></div>
+          <div class="heading-actions"><a class="driver-preview-link" href="motorista.html">▣ Visão motorista</a><a class="driver-preview-link" href="qr-motorista.html">▦ QR do motorista</a><button id="alertSettingsBtn" class="ghost-action">⚙ Alertas</button><button id="lessorsBtn" class="ghost-action">▣ Locadoras</button><button id="resetPreviewBtn" class="ghost-action">↺ Restaurar prévia</button><button id="importBtn" class="secondary">⇧ Importar planilha</button><button id="addEquipmentBtn" class="primary">＋ Adicionar equipamento</button></div>
+        </div>
+
+        <div class="kpis">
+          <article><span class="kpi-icon navy">◆</span><div><small>EQUIPAMENTOS</small><strong id="equipmentTotal">0</strong><p>Cadastros consolidados</p></div></article>
+          <article><span class="kpi-icon teal">▤</span><div><small>ABAS LIDAS</small><strong id="sheetTotal">0</strong><p>Planilha completa</p></div></article>
+          <article><span class="kpi-icon amber">◷</span><div><small>COM HISTÓRICO</small><strong id="historyTotal">0</strong><p>Datas já preenchidas</p></div></article>
+          <article><span class="kpi-icon green">✓</span><div><small>PLANOS DETALHADOS</small><strong id="planTotal">0</strong><p>Itens preventivos</p></div></article>
+        </div>
+
+        <div class="info-strip"><span>i</span><div><strong>Alertas configuráveis por colaborador</strong><p id="alertRulesText">Avisar com 50 h ou 5.000 km de antecedência.</p></div><button id="alertSettingsShortcut" type="button">Configurar alertas</button></div>
+
+        <div class="fleet-layout">
+          <aside class="fleet-list-panel">
+            <div class="panel-title"><div><h3>Equipamentos</h3><p id="equipmentFound">0 encontrados</p></div><button id="clearFilter" title="Limpar filtros">↻</button></div>
+            <label class="search">⌕<input id="searchInput" type="search" placeholder="Buscar placa, série ou modelo..."></label>
+            <div class="filter-row">
+              <button class="active" data-filter="all">Todos</button>
+              <button data-filter="road">Veículos</button>
+              <button data-filter="machine">Máquinas</button>
+            </div>
+            <div id="equipmentList" class="equipment-list"></div>
+          </aside>
+
+          <section class="detail-panel">
+            <div id="summary" class="summary"></div>
+            <div class="detail-actions"><button id="editEquipmentBtn" class="secondary">Editar cadastro</button><button id="updateReadingBtn" class="secondary">Atualizar leitura</button><button id="registerMaintenanceBtn" class="primary">＋ Registrar manutenção</button></div>
+            <div class="tabs">
+              <button class="active" data-tab="plan">Plano preventivo <b id="planBadge">0</b></button>
+              <button data-tab="history">Histórico</button>
+              <button data-tab="documents">Documentos</button>
+              <button data-tab="sources">Origem da planilha</button>
+            </div>
+            <div id="detailContent"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="equipmentDialog" class="modal">
+    <form id="equipmentForm">
+      <div class="modal-head"><div><p>GESTÃO DE FROTA</p><h2 id="equipmentDialogTitle">Novo equipamento</h2></div><button type="button" data-close-dialog="equipmentDialog">×</button></div>
+      <input name="id" type="hidden">
+      <div class="form-grid">
+        <label>Placa, série ou identificação<input name="identifier" required></label>
+        <label>PETRAN<input name="petran" pattern="[A-Za-z0-9 -]+" maxlength="40" placeholder="Ex.: PTR1234 ou MAQ-08A"><small>Aceita letras, números, espaço e hífen.</small></label>
+        <label>Tipo<select name="kind"><option>Caminhão basculante</option><option>Caminhão Munck</option><option>Van</option><option>Ambulância</option><option>Ônibus</option><option>Retroescavadeira</option><option>Escavadeira</option><option>Outro</option></select></label>
+        <label>Fabricante<input name="manufacturer"></label>
+        <label>Modelo<input name="model"></label>
+        <label>Ano<input name="year" type="number" min="1900" max="2200"></label>
+        <label>Situação do bem<select name="ownership"><option value="owned">Próprio</option><option value="rented">Alugado</option></select></label>
+        <label>Controle<select name="unit"><option value="km">Quilometragem (km)</option><option value="h">Horímetro (h)</option></select></label>
+        <label>Leitura atual<input name="currentReading" type="number" min="0" step="0.01" required></label>
+        <label class="rental-field" hidden>Próxima revisão da locadora<input name="nextRevisionReading" type="number" min="0" step="0.01"></label>
+        <label class="rental-field" hidden>Locadora cadastrada<select name="lessorId"></select></label>
+        <label class="rental-field" hidden>Contrato ou referência<input name="contractNumber"></label>
+        <label class="rental-field" hidden>Nota fiscal do equipamento<input name="invoiceNumber"></label>
+        <label class="rental-field" hidden>Data da nota fiscal<input name="invoiceDate" type="date"></label>
+        <label class="rental-field" hidden>Data de chegada<input name="arrivalDate" type="date"></label>
+        <label class="rental-field" hidden>KM ou horas na chegada<input name="arrivalReading" type="number" min="0" step="0.01"></label>
+        <label>Responsável<input name="responsible"></label>
+        <label class="span-2">Observações<textarea name="notes" rows="3"></textarea></label>
+      </div>
+      <div class="modal-actions"><button type="button" class="secondary" data-close-dialog="equipmentDialog">Cancelar</button><button type="submit" class="primary">Salvar equipamento</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="alertSettingsDialog" class="modal modal-small">
+    <form id="alertSettingsForm">
+      <div class="modal-head"><div><p>PERFIL DO COLABORADOR</p><h2>Configurar alertas</h2></div><button type="button" data-close-dialog="alertSettingsDialog">×</button></div>
+      <label>Colaborador ou perfil<input name="collaborator" required placeholder="Ex.: Davi ou Equipe de Frota"></label>
+      <label>Antecedência para máquinas<input name="hoursThreshold" type="number" min="1" step="1" required><small>Quantidade de horas antes do vencimento.</small></label>
+      <label>Antecedência para veículos<input name="kmThreshold" type="number" min="1" step="1" required><small>Quantidade de quilômetros antes do vencimento.</small></label>
+      <div class="rental-note"><span>i</span><div><strong>Configuração individual nesta prévia</strong><small>No sistema definitivo, estes limites poderão ficar vinculados ao usuário conectado.</small></div></div>
+      <div class="modal-actions"><button type="button" class="secondary" data-close-dialog="alertSettingsDialog">Cancelar</button><button type="submit" class="primary">Salvar limites</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="rentalRevisionDialog" class="modal modal-small">
+    <form id="rentalRevisionForm">
+      <div class="modal-head"><div><p>MANUTENÇÃO PELA LOCADORA</p><h2>Registrar revisão informada</h2></div><button type="button" data-close-dialog="rentalRevisionDialog">×</button></div>
+      <div id="rentalRevisionEquipment" class="modal-summary"></div>
+      <label>Data da revisão ou comunicação<input name="date" type="date" required></label>
+      <label>Próxima revisão informada pela locadora<input name="nextRevisionReading" type="number" min="0" step="0.01" required></label>
+      <label>Documento, protocolo ou OS<input name="document"></label>
+      <label>Observações<textarea name="notes" rows="3" placeholder="Ex.: revisão confirmada pela locadora"></textarea></label>
+      <div class="rental-note"><span>i</span><div><strong>A manutenção continua sob responsabilidade da locadora</strong><small>O sistema registra somente a leitura e o próximo limite para acompanhamento.</small></div></div>
+      <div class="modal-actions"><button type="button" class="secondary" data-close-dialog="rentalRevisionDialog">Cancelar</button><button type="submit" class="primary">Salvar próxima revisão</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="lessorsDialog" class="modal">
+    <div class="modal-head"><div><p>CADASTRO DE FORNECEDORES</p><h2>Empresas locadoras</h2></div><button type="button" data-close-dialog="lessorsDialog">×</button></div>
+    <div class="lessors-toolbar"><p>Cadastre a empresa uma vez e vincule vários equipamentos alugados.</p><button id="newLessorBtn" class="primary" type="button">＋ Nova locadora</button></div>
+    <div id="lessorsList" class="lessors-list"></div>
+    <div class="modal-actions"><button type="button" class="secondary" data-close-dialog="lessorsDialog">Fechar</button></div>
+  </dialog>
+
+  <dialog id="lessorEditorDialog" class="modal">
+    <form id="lessorForm">
+      <div class="modal-head"><div><p>EMPRESA LOCADORA</p><h2 id="lessorDialogTitle">Nova locadora</h2></div><button type="button" data-close-dialog="lessorEditorDialog">×</button></div>
+      <input name="id" type="hidden">
+      <div class="form-grid">
+        <label>Razão social<input name="companyName" required></label>
+        <label>Nome fantasia<input name="tradeName"></label>
+        <label>CNPJ<input name="cnpj" placeholder="00.000.000/0000-00"></label>
+        <label>Responsável pelo atendimento<input name="contactName"></label>
+        <label>Telefone<input name="phone"></label>
+        <label>E-mail<input name="email" type="email"></label>
+        <label class="span-2">Endereço<input name="address"></label>
+        <label class="span-2">Observações<textarea name="notes" rows="3"></textarea></label>
+      </div>
+      <div class="modal-actions"><button type="button" class="secondary" data-close-dialog="lessorEditorDialog">Cancelar</button><button type="submit" class="primary">Salvar locadora</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="readingDialog" class="modal modal-small">
+    <form id="readingForm">
+      <div class="modal-head"><div><p>ATUALIZAÇÃO DE PAINEL</p><h2>Atualizar leitura</h2></div><button type="button" data-close-dialog="readingDialog">×</button></div>
+      <div id="readingEquipment" class="modal-summary"></div>
+      <label>Nova leitura<div class="input-with-unit"><input name="reading" type="number" min="0" step="0.01" required><b id="readingUnit">km</b></div></label>
+      <label>Data da leitura<input name="date" type="date" required></label>
+      <label>Observação<textarea name="notes" rows="3" placeholder="Ex.: leitura conferida no painel"></textarea></label>
+      <div id="readingImpact" class="impact-box"></div>
+      <div class="modal-actions"><button type="button" class="secondary" data-close-dialog="readingDialog">Cancelar</button><button type="submit" class="primary">Atualizar e recalcular</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="maintenanceDialog" class="modal">
+    <form id="maintenanceForm">
+      <div class="modal-head"><div><p>REGISTRO DE SERVIÇO</p><h2>Registrar manutenção</h2></div><button type="button" data-close-dialog="maintenanceDialog">×</button></div>
+      <input name="planKey" type="hidden">
+      <div id="maintenanceEquipment" class="modal-summary"></div>
+      <div class="form-grid">
+        <label>Data da manutenção<input name="date" type="date" required></label>
+        <label>Leitura no momento<input name="reading" type="number" min="0" step="0.01" required></label>
+        <label>Tipo<select name="type"><option value="Preventiva">Preventiva</option><option value="Corretiva">Corretiva</option><option value="Inspeção">Inspeção</option></select></label>
+        <label>Serviço realizado<input name="service" required></label>
+        <label>Responsável ou oficina<input name="provider"></label>
+        <label>OS ou nota fiscal<input name="document"></label>
+        <label class="span-2">Peças e materiais<textarea name="parts" rows="2"></textarea></label>
+        <label class="span-2">Observações<textarea name="notes" rows="3"></textarea></label>
+      </div>
+      <div class="success-note"><span>✓</span><div><strong>Próximo ciclo automático</strong><small>Ao salvar, o histórico e a próxima manutenção serão atualizados nesta prévia.</small></div></div>
+      <div class="modal-actions"><button type="button" class="secondary" data-close-dialog="maintenanceDialog">Cancelar</button><button type="submit" class="primary">Confirmar manutenção</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="documentDialog" class="modal modal-small">
+    <form id="documentForm">
+      <div class="modal-head"><div><p>DOCUMENTOS DA FROTA</p><h2>Adicionar documento</h2></div><button type="button" data-close-dialog="documentDialog">×</button></div>
+      <label>Tipo<select name="type"><option>Tacógrafo</option><option>Opacímetro</option><option>Licenciamento</option><option>Seguro</option><option>Outro</option></select></label>
+      <label>Número ou referência<input name="number"></label>
+      <label>Data de emissão<input name="issuedAt" type="date"></label>
+      <label>Vencimento<input name="dueAt" type="date" required></label>
+      <label>Responsável ou empresa<input name="provider"></label>
+      <div class="modal-actions"><button type="button" class="secondary" data-close-dialog="documentDialog">Cancelar</button><button type="submit" class="primary">Salvar documento</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="importDialog" class="modal">
+    <form id="importForm">
+      <div class="modal-head"><div><p>IMPORTAÇÃO SEGURA</p><h2>Atualizar pela planilha</h2></div><button type="button" data-close-dialog="importDialog">×</button></div>
+      <div class="import-summary"><article><small>ABAS</small><strong>23</strong></article><article><small>EQUIPAMENTOS</small><strong>20</strong></article><article><small>DUPLICIDADES</small><strong>3</strong></article><article><small>MODO</small><strong>Prévia</strong></article></div>
+      <div class="drop-zone"><span>⇧</span><strong>Plano de Manutenção de Equipamentos</strong><small>Na implementação real, você selecionará o XLSX aqui e verá a conferência antes de gravar.</small></div>
+      <label class="check-row"><input name="preserve" type="checkbox" checked> Preservar alterações feitas manualmente nesta prévia</label>
+      <div class="import-warning"><b>!</b><span><strong>Nenhum dado será enviado ao sistema</strong><small>Este botão apenas simula o fluxo de atualização.</small></span></div>
+      <div class="modal-actions"><button type="button" class="secondary" data-close-dialog="importDialog">Cancelar</button><button type="submit" class="primary">Simular atualização</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="resetDialog" class="modal modal-small">
+    <form id="resetForm">
+      <div class="modal-head"><div><p>RESTAURAR DADOS</p><h2>Voltar à planilha original?</h2></div><button type="button" data-close-dialog="resetDialog">×</button></div>
+      <p class="dialog-text">As alterações feitas nesta prévia serão apagadas somente do navegador. O sistema e a planilha original não serão afetados.</p>
+      <div class="modal-actions"><button type="button" class="secondary" data-close-dialog="resetDialog">Cancelar</button><button type="submit" class="danger">Restaurar prévia</button></div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="fleet-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

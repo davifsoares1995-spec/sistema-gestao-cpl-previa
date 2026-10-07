@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#102b41">
+  <title>Leitura do Motorista — Gestão de Frota</title>
+  <link rel="stylesheet" href="motorista.css">
+  <style>.reading-summary.single{grid-template-columns:1fr}</style>
+</head>
+<body>
+  <main class="phone-shell">
+    <header class="mobile-header">
+      <div class="brand-mark">CPL</div>
+      <div><small>SISTEMA DE GESTÃO</small><strong>Leitura do motorista</strong></div>
+      <span class="secure-dot" title="Sessão protegida"></span>
+    </header>
+
+    <section class="welcome">
+      <div><small>REGISTRO RÁPIDO</small><h1 id="pageReadingTitle">Atualize a leitura</h1><p>Selecione o veículo ou máquina e informe o painel.</p></div>
+      <a href="index.html" aria-label="Voltar à gestão de frota">←</a>
+    </section>
+
+    <section class="vehicle-card">
+      <div class="vehicle-top">
+        <div><small id="identifierLabel">PLACA OU IDENTIFICAÇÃO</small><strong id="vehicleIdentifier">—</strong></div>
+        <div class="qr-symbol" aria-hidden="true"></div>
+      </div>
+      <label class="vehicle-selector">Selecionar o veículo ou máquina
+        <select id="vehicleSelect" aria-label="Selecionar o veículo ou máquina"></select>
+      </label>
+      <div class="reading-summary single">
+        <div><small id="previousReadingLabel">LEITURA ANTERIOR</small><strong id="currentReading">—</strong></div>
+      </div>
+    </section>
+
+    <form id="driverReadingForm" novalidate>
+      <section class="form-card">
+        <div class="step-title"><span>1</span><div><strong id="updatedReadingLabel">Leitura atualizada</strong><small>Digite exatamente como aparece no painel.</small></div></div>
+        <label class="reading-input"><input name="reading" type="number" min="0" step="1" inputmode="numeric" placeholder="0" required><b id="readingUnit">km</b></label>
+        <p id="readingFeedback" class="feedback">O KM atualizado não pode ser menor que o anterior.</p>
+      </section>
+
+      <button id="reviewReadingBtn" class="submit-button" type="submit">Revisar leitura</button>
+      <p class="privacy-note">🔒 A atualização será salva diretamente no sistema.</p>
+    </form>
+
+    <section id="successCard" class="success-card" hidden>
+      <span>✓</span><h2 id="successTitle">Leitura atualizada!</h2><p id="successMessage"></p>
+      <button id="newReadingBtn" type="button">Atualizar outro equipamento</button>
+    </section>
+  </main>
+
+  <dialog id="confirmDialog">
+    <form method="dialog" id="confirmForm">
+      <div class="confirm-handle"></div>
+      <small>CONFIRA ANTES DE ENVIAR</small><h2 id="confirmTitle">A leitura está correta?</h2>
+      <div class="confirm-vehicle"><strong id="confirmVehicle"></strong></div>
+      <dl><div><dt id="confirmPreviousLabel">Leitura anterior</dt><dd id="confirmPrevious"></dd></div><div><dt id="confirmNewLabel">Leitura atualizada</dt><dd id="confirmNew"></dd></div><div><dt>Diferença</dt><dd id="confirmDifference"></dd></div></dl>
+      <p id="confirmWarning" class="confirm-warning" hidden></p>
+      <button value="confirm" class="confirm-submit">Confirmar atualização</button>
+      <button value="cancel" class="confirm-cancel">Voltar e corrigir</button>
+    </form>
+  </dialog>
+
+  <script src="fleet-data.js"></script>
+  <script src="motorista.js"></script>
+</body>
+</html>

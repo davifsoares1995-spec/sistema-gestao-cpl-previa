@@ -1,0 +1,152 @@
+:root {
+  --muted: #5e7380;
+  --text: #102a3a;
+}
+
+html {
+  font-size: 16px;
+  text-rendering: optimizeLegibility;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+  font-family: "Segoe UI Variable Text", "Segoe UI", Roboto, Arial, sans-serif;
+  -webkit-font-smoothing: auto;
+  font-synthesis: none;
+}
+
+body {
+  font-size: 14px;
+  line-height: 1.45;
+  font-weight: 450;
+}
+
+.brand strong { font-size: 15px; }
+.brand small { font-size: 11px; }
+.sidebar nav button { font-size: 13px; }
+.preview-note b { font-size: 10px; }
+.preview-note p { font-size: 11px; }
+
+.topbar p,
+.heading p { font-size: 11px; }
+.topbar h1 { font-size: 23px; }
+.top-actions button,
+.session { font-size: 12px; }
+.heading h2 { font-size: 28px; line-height: 1.2; }
+.heading span { font-size: 14px; }
+.heading-actions button,
+.detail-actions button,
+.info-strip button,
+.ghost-action,
+.danger { font-size: 12px; }
+.driver-preview-link {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #b8d9d0;
+  border-radius: 9px;
+  background: #eaf7f3;
+  padding: 10px 13px;
+  color: #087b63;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.kpis small { font-size: 10px; }
+.kpis strong { font-size: 23px; }
+.kpis p { font-size: 11px; }
+.info-strip strong { font-size: 13px; }
+.info-strip p { font-size: 11px; }
+
+.fleet-layout { grid-template-columns: 365px minmax(0, 1fr); }
+.panel-title h3 { font-size: 16px; }
+.panel-title p { font-size: 11px; }
+.search input { font-size: 13px; }
+.filter-row button { font-size: 11px; }
+.equipment-card small { font-size: 10px; }
+.equipment-card strong { font-size: 14px; }
+.equipment-card em { font-size: 11px; }
+.equipment-card b { font-size: 12px; }
+.equipment-card i { font-size: 10px; }
+
+.summary small { font-size: 10px; }
+.summary h3 { font-size: 24px; }
+.summary strong { font-size: 17px; }
+.summary p { font-size: 11px; }
+.summary .source-chip { font-size: 10px; }
+.tabs button { font-size: 12px; }
+.tabs b { font-size: 10px; }
+
+.table-title h3,
+.documents-head h3 { font-size: 17px; }
+.table-title p { font-size: 11px; }
+.table-title .legend { font-size: 10px; }
+.plan-head { font-size: 10px; }
+.plan-row { font-size: 11px; }
+.plan-row .reading-cell,
+.action-tag,
+.status,
+.complete-btn { font-size: 10px; }
+
+.history-card small,
+.source-card small,
+.document-card small { font-size: 10px; }
+.history-card strong { font-size: 12px; }
+.history-card p,
+.source-card span,
+.document-card time { font-size: 11px; }
+.history-card em,
+.document-card em { font-size: 10px; }
+.source-card strong { font-size: 14px; }
+.mapping-box h4 { font-size: 13px; }
+.mapping-box ul,
+.empty-state p { font-size: 11px; }
+
+.modal-head p { font-size: 10px; }
+.modal-head h2 { font-size: 22px; }
+.modal label { font-size: 12px; }
+.modal input,
+.modal select,
+.modal textarea { font-size: 13px; }
+.modal label small,
+.modal-summary small,
+.modal-summary span,
+.success-note small,
+.import-warning small,
+.drop-zone small,
+.rental-note small { font-size: 11px; }
+.impact-box,
+.dialog-text,
+.toast { font-size: 12px; }
+.documents-head button,
+.lessors-toolbar button,
+.lessor-card button { font-size: 11px; }
+
+.rental-control small,
+.rental-details small,
+.arrival-grid small,
+.lessor-contact-card small,
+.lessor-card small { font-size: 10px; }
+.rental-control p,
+.lessor-card em { font-size: 11px; }
+.rental-control h3 { font-size: 19px; }
+.rental-control strong { font-size: 18px; }
+.rental-control em { font-size: 10px; }
+.rental-details strong,
+.arrival-grid strong,
+.lessor-card strong { font-size: 12px; }
+.lessor-contact-card strong { font-size: 11px; }
+.lessors-toolbar p { font-size: 12px; }
+
+@media (max-width: 1100px) {
+  .fleet-layout { grid-template-columns: 315px minmax(0, 1fr); }
+}
+
+@media (max-width: 780px) {
+  .fleet-layout { grid-template-columns: 1fr; }
+  .heading h2 { font-size: 24px; }
+}

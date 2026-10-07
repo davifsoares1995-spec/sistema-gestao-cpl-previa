@@ -55,8 +55,26 @@
       return prepared;
     })};
   }
+  function normalizeSavedState(saved){
+    const fresh=createState();
+    const equipment=saved.equipment.map(item=>{
+      const fallback=fresh.equipment.find(candidate=>candidate.id===item.id||candidate.identifier===item.identifier)||{};
+      const merged={...fallback,...item};
+      merged.unit=merged.unit||(machineKinds.has(merged.kind)?'h':'km');
+      merged.currentReading=Number(merged.currentReading||0);
+      merged.ownership=merged.ownership||'owned';
+      merged.plan=Array.isArray(merged.plan)?merged.plan:[];
+      merged.documents=Array.isArray(merged.documents)?merged.documents:initialDocuments(merged);
+      merged.historyRecords=Array.isArray(merged.historyRecords)?merged.historyRecords:[];
+      merged.sourceSheets=Array.isArray(merged.sourceSheets)?merged.sourceSheets:[];
+      merged.variants=Array.isArray(merged.variants)?merged.variants:[];
+      merged.planState=merged.planState&&typeof merged.planState==='object'?merged.planState:initialPlanState(merged,merged.currentReading);
+      return merged;
+    });
+    return {...fresh,...saved,alertSettings:{...defaultAlertSettings,...saved.alertSettings},lessors:Array.isArray(saved.lessors)?saved.lessors:fresh.lessors,equipment};
+  }
   function loadState(){
-    try { const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)); if(saved?.equipment?.length)return {...saved,alertSettings:{...defaultAlertSettings,...saved.alertSettings}}; } catch (_) {}
+    try { const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)); if(saved?.equipment?.length)return normalizeSavedState(saved); } catch (_) {}
     return createState();
   }
   let state=loadState();

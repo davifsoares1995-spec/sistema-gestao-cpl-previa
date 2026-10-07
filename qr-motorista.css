@@ -77,6 +77,46 @@ h1 {
   line-height: 1.55;
 }
 
+.equipment-picker {
+  display: grid;
+  gap: 8px;
+  max-width: 440px;
+  margin: 0 auto 14px;
+  color: #496171;
+  font-size: 14px;
+  font-weight: 800;
+  text-align: left;
+}
+
+.equipment-picker[hidden] { display: none; }
+
+.equipment-picker select {
+  width: 100%;
+  border: 1px solid #b8cbd5;
+  border-radius: 12px;
+  background: #fff;
+  padding: 13px 14px;
+  color: #102b41;
+  font: inherit;
+  font-size: 16px;
+}
+
+.equipment-badge {
+  max-width: 440px;
+  margin: 0 auto 20px;
+  border-radius: 15px;
+  background: #102b41;
+  padding: 14px 18px;
+  color: #fff;
+}
+
+.equipment-badge small,
+.equipment-badge strong,
+.equipment-badge span { display: block; }
+.equipment-badge small { color: #63d5ba; font-size: 11px; font-weight: 850; letter-spacing: .1em; }
+.equipment-badge strong { margin: 3px 0; font-size: 25px; }
+.equipment-badge span { color: #b8cad3; font-size: 13px; }
+
 .qr-frame {
   display: inline-flex;
   max-width: 100%;

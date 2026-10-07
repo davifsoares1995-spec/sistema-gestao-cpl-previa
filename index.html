@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="rental.css">
   <link rel="stylesheet" href="lessors.css">
   <link rel="stylesheet" href="typography.css">
+  <link rel="stylesheet" href="vehicle-qr.css">
 </head>
 <body>
   <div class="app-shell">
@@ -35,7 +36,7 @@
       <section class="content">
         <div class="heading">
           <div><p>SISTEMA DE GESTÃO › FROTA › PRÉVIA DA PLANILHA</p><h2>Plano de manutenção dos equipamentos</h2><span>As 23 abas foram organizadas em uma visão única, com equipamentos, ciclos e histórico.</span></div>
-          <div class="heading-actions"><a class="driver-preview-link" href="motorista.html">▣ Visão motorista</a><a class="driver-preview-link" href="qr-motorista.html">▦ QR do motorista</a><button id="alertSettingsBtn" class="ghost-action">⚙ Alertas</button><button id="lessorsBtn" class="ghost-action">▣ Locadoras</button><button id="resetPreviewBtn" class="ghost-action">↺ Restaurar prévia</button><button id="importBtn" class="secondary">⇧ Importar planilha</button><button id="addEquipmentBtn" class="primary">＋ Adicionar equipamento</button></div>
+          <div class="heading-actions"><a class="driver-preview-link" href="https://davifsoares1995-spec.github.io/sistema-gestao-cpl-motorista/" target="_blank" rel="noopener">▣ Visão motorista</a><a class="driver-preview-link" href="qr-motorista.html">▦ QR do motorista</a><button id="alertSettingsBtn" class="ghost-action">⚙ Alertas</button><button id="lessorsBtn" class="ghost-action">▣ Locadoras</button><button id="resetPreviewBtn" class="ghost-action">↺ Restaurar prévia</button><button id="importBtn" class="secondary">⇧ Importar planilha</button><button id="addEquipmentBtn" class="primary">＋ Adicionar equipamento</button></div>
         </div>
 
         <div class="kpis">
@@ -61,7 +62,7 @@
 
           <section class="detail-panel">
             <div id="summary" class="summary"></div>
-            <div class="detail-actions"><button id="editEquipmentBtn" class="secondary">Editar cadastro</button><button id="updateReadingBtn" class="secondary">Atualizar leitura</button><button id="registerMaintenanceBtn" class="primary">＋ Registrar manutenção</button></div>
+            <div class="detail-actions"><a id="vehicleQrBtn" class="secondary detail-link" href="qr-motorista.html">▦ QR deste veículo</a><button id="editEquipmentBtn" class="secondary">Editar cadastro</button><button id="updateReadingBtn" class="secondary">Atualizar leitura</button><button id="registerMaintenanceBtn" class="primary">＋ Registrar manutenção</button></div>
             <div class="tabs">
               <button class="active" data-tab="plan">Plano preventivo <b id="planBadge">0</b></button>
               <button data-tab="history">Histórico</button>

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#102b41">
   <title>QR Code do motorista | Gestão de Frota CPL</title>
-  <link rel="stylesheet" href="qr-motorista.css">
+  <link rel="stylesheet" href="qr-motorista.css?v=2">
 </head>
 <body>
   <main class="page-shell">
@@ -17,13 +17,22 @@
       <div class="brand-mark" aria-hidden="true">CPL</div>
       <p class="eyebrow">GESTÃO DE FROTA</p>
       <h1 id="pageTitle">Leitura do motorista</h1>
-      <p class="lead">Aponte a câmera do celular para informar o KM ou as horas do equipamento.</p>
+      <p class="lead">Escolha o veículo ou máquina. O QR Code ficará vinculado a essa identificação para evitar erros.</p>
+
+      <label id="equipmentPicker" class="equipment-picker">Veículo ou máquina
+        <select id="equipmentSelect" aria-label="Selecionar veículo ou máquina"></select>
+      </label>
+      <div class="equipment-badge">
+        <small id="equipmentType">VEÍCULO</small>
+        <strong id="equipmentIdentifier">—</strong>
+        <span id="equipmentReadingType">Controle por KM</span>
+      </div>
 
       <div class="qr-frame">
         <canvas id="driverQr" width="340" height="340" aria-label="QR Code para a página de leitura do motorista"></canvas>
       </div>
 
-      <p class="scan-hint">Aponte a câmera do celular</p>
+      <p class="scan-hint">QR Code exclusivo deste equipamento</p>
       <p id="qrStatus" class="status" role="status">Preparando QR Code…</p>
       <p id="targetUrl" class="target-url"></p>
 
@@ -33,11 +42,12 @@
         <button id="printQr" class="button secondary" type="button">Imprimir</button>
       </div>
 
-      <p class="preview-note">QR Code da prévia online. No sistema definitivo, ele será substituído pelo endereço oficial.</p>
+      <p class="preview-note">Imprima e fixe a etiqueta no veículo. Ao escanear, a placa ou identificação ficará bloqueada na tela do motorista.</p>
     </section>
   </main>
 
+  <script src="fleet-data.js"></script>
   <script src="qrcode.bundle.js"></script>
-  <script src="qr-motorista.js"></script>
+  <script src="qr-motorista.js?v=2"></script>
 </body>
 </html>

@@ -114,6 +114,8 @@
     const item=current(),alerts=alertsFor(item),rented=item.ownership==='rented',rental=rented?rentalStatus(item):null;
     $('summary').innerHTML=`<div><small>${rented?'EQUIPAMENTO ALUGADO':esc(item.kind.toUpperCase())}</small><h3>${esc(item.identifier)}</h3><p>${esc([item.manufacturer,item.model,item.year&&!String(item.year).includes(':')?item.year:'',item.petran&&`PETRAN ${item.petran}`].filter(Boolean).join(' · ')||item.equipment)}</p><span class="source-chip">${item.sourceTabCount} aba${item.sourceTabCount===1?'':'s'} de origem</span>${item.rentalDemo?'<span class="source-chip rental-banner">Exemplo da prévia</span>':''}</div><div><small>LEITURA ATUAL</small><strong>${esc(readingLabel(item))}</strong><p>${isMachine(item)?'Controle por horímetro':'Controle por quilometragem'}</p></div><div><small>${rented?'PRÓXIMA REVISÃO DA LOCADORA':'ACOMPANHAMENTO'}</small><strong>${rented?esc(readingLabel(item,rental.next)):(alerts?`${alerts} alerta${alerts===1?'':'s'}`:'Tudo em dia')}</strong><p>${rented?(rental.remaining<=0?`${formatReading(Math.abs(rental.remaining))} ${item.unit} além do limite`:`Faltam ${formatReading(rental.remaining)} ${item.unit}`):`${item.historyRecords.length} registro(s) no histórico`}</p></div>`;
     const planButton=document.querySelector('[data-tab="plan"]');planButton.innerHTML=rented?'Controle da locadora <b>1</b>':`Plano preventivo <b>${item.plan.filter(row=>!row.group).length}</b>`;
+    $('vehicleQrBtn').href=`qr-motorista.html?equipamento=${encodeURIComponent(item.identifier)}`;
+    $('vehicleQrBtn').title=`Gerar QR Code exclusivo para ${item.identifier}`;
     $('registerMaintenanceBtn').textContent=rented?'Registrar revisão da locadora':'＋ Registrar manutenção';
   }
   function renderPlan(item){
